@@ -10,7 +10,7 @@ import(
 	"net/http"
 	"github.com/gorilla/mux"
 
-	"github.com/daffodil/go-mail2ajax/mcore"
+	"github.com/daffodil/go-mail2ajax/m2a"
 )
 
 //===============================================
@@ -36,14 +36,14 @@ func GetImapClient(resp http.ResponseWriter, req *http.Request)(*imap.Client) {
 	// Get email and Password and active from DB and validate
 	sql := "select email, password, active from virtual_users where email=?"
 	mb := new(MbLogin)
-	err := mcore.Db.QueryRow(sql, addr.Address).Scan(&mb.Email, &mb.Password, &mb.Active)
+	err := m2a.Db.QueryRow(sql, addr.Address).Scan(&mb.Email, &mb.Password, &mb.Active)
 	if err != nil {
 		SendErrorPayload("Mailbox not found", resp)
 		return nil
 	}
 
 	//= Connect to Server
-	client, conn_err := imap.DialTLS(mcore.Config.MailServer, mcore.Config.Tls)
+	client, conn_err := imap.DialTLS(m2a.Cfg.MailServer, m2a.Cfg.Tls)
 	if conn_err != nil {
 		SendErrorPayload( conn_err.Error(), resp )
 		return nil
