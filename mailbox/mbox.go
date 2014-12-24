@@ -3,7 +3,7 @@ package mailbox
 
 import(
 
-	//"fmt"
+	"fmt"
 	"net/mail"
 	"code.google.com/p/go-imap/go1/imap"
 
@@ -21,7 +21,7 @@ type MbLogin  struct{
 }
 
 
-//== Check and get credentials of email
+//== Check credentials of account via db, and connect with IMAP (shorter timeout)
 func GetImapClient(resp http.ResponseWriter, req *http.Request)(*imap.Client) {
 
 	//= Get Email address and validate
@@ -38,11 +38,12 @@ func GetImapClient(resp http.ResponseWriter, req *http.Request)(*imap.Client) {
 	mb := new(MbLogin)
 	err := m2a.Db.QueryRow(sql, addr.Address).Scan(&mb.Email, &mb.Password, &mb.Active)
 	if err != nil {
+		fmt.Println("error=", err)
 		SendErrorPayload("Mailbox not found", resp)
 		return nil
 	}
 
-	//= Connect to Server
+	//= Connect to IMAP Server
 	client, conn_err := imap.DialTLS(m2a.Cfg.MailServer, m2a.Cfg.Tls)
 	if conn_err != nil {
 		SendErrorPayload( conn_err.Error(), resp )

@@ -28,7 +28,7 @@ type Config struct {
 
 func DefaultConfig()  *Config {
 	return &Config{
-		AuthSecret: "secret",
+		AuthSecret: "secret-123456-989654333^&*)0-dsa@here",
 		DbEngine: "mysql",
 		DbConnect:     "root:secret@localhost/my_mail_server",
 		MailServer:     "example.com",

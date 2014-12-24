@@ -45,12 +45,12 @@ func SetAjaxHeaders(w http.ResponseWriter){
 
 
 func SetRoutes(router *mux.Router){
-	router.HandleFunc("/rpc/mailbox/{address}/summary", SummaryHandler)
+	router.HandleFunc("/ajax/mailbox/{address}/summary", SummaryHandler)
 		//mux.Get("/rpc/mailbox/summary", mailajax.SummaryHandler)
 
-	router.HandleFunc("/rpc/mailbox/{address}/folders", FoldersHandler)
+	router.HandleFunc("/ajax/mailbox/{address}/folders", FoldersHandler)
 
-	router.HandleFunc("/rpc/mailbox/{address}/folder/{folder}/message/{uid}", MessageHandler)
+	router.HandleFunc("/ajax/mailbox/{address}/folder/{folder}/message/{uid}", MessageHandler)
 	//mux.Post("/rpc/mailbox/mb_id/{mb_id:[0-9]+}", mailadmin.MailBoxPostHandler)
 	//mux.Get("/rpc/mailboxes", mailadmin.MailBoxesHandler)
 }

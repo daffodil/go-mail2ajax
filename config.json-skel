@@ -2,10 +2,10 @@
     "debug": true,
     "secret": "Secret-Shared-Token",
     "db_engine": "mysql",
-    "db_connect":"root:secret@localhost/my_db",
+    "db_connect":"root:secret@/my_db",
     "http_listen": "0.0.0.0:8888"
 
-    "mail_server_address": "5.153.225.105",
+    "mail_server_address": "example.com",
     "mail_server_port": 587,
 
     "mail_domains": [
@@ -14,7 +14,7 @@
     ],
 
     "smtp_server_port": 25,
-    "smtp_server_address": "5.153.225.105",
+    "smtp_server_address": "smtp.example.com",
     "smtp_user": "root@bar.com",
     "smtp_pass": "smtp_pass",
 }

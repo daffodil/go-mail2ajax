@@ -1,28 +1,27 @@
 go-mail2ajax
 ============
 
-This project is experimental, under dev and not to be taken seriously.
+This project is experimental, under dev and not to be taken seriously, yet!
 
-Quick Rundown..
+  golang newbie wants help! 
+  
+The app is a revised/updated version of a realworld app, running on a
+mailserver and attached database, eg a dedicated machine or a LAN+online integration.
 
-This is an experimental idea to create an interface
-to both admin a mailserver,
-but also to send emails and read via 
-a AJAX REST interface, all in one GoLang app 
 
-So the idea is:
-- a go http server spits out ajax
-- a imap connector to read mailboxes
-- a way to change profile, eg passwd, out of office, forwardings
-- a rest connector to CRUD mailboxes
+Read Access Mailboxes: 
+---------------------------
 
-This app is currently under development for use
-at a couple of small businesses with lots of email and lots
-and lots of attachments flying around.
+/ajax/mailbox/{my@example.com}/summary
+- returns a list of folder ++ top + latest messages
 
-The service is intended fo use via json with pyqt desktop application
-an android/phonegap app and a jquerymobile app.
+/ajax/mailbox/{my@example.com}/folders
+- returns a list of imap folders and new mesages etc
 
-Help wanted as pedro is a golang newbie.
+/ajax/mailbox/{me@address.com}/folder/{imap_folder}/message/{uid}
+- returns the message embedded in json, in peek later
+
+
+
 
 
