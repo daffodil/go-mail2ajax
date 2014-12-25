@@ -9,11 +9,27 @@ import(
 	"bytes"
 	"net/mail"
 	"encoding/json"
-	
+	//"database/sql"
+
 	"github.com/gorilla/mux"
 	"code.google.com/p/go-imap/go1/imap"
+
+	"github.com/daffodil/go-mail2ajax/m2a"
 )
 
+var config *m2a.Config
+
+func Configure(cfg *m2a.Config, router *mux.Router){
+	config = cfg
+	router.HandleFunc("/ajax/mailbox/{address}/summary", SummaryHandler)
+	//mux.Get("/rpc/mailbox/summary", mailajax.SummaryHandler)
+
+	router.HandleFunc("/ajax/mailbox/{address}/folders", FoldersHandler)
+
+	router.HandleFunc("/ajax/mailbox/{address}/folder/{folder}/message/{uid}", MessageHandler)
+	//mux.Post("/rpc/mailbox/mb_id/{mb_id:[0-9]+}", mailadmin.MailBoxPostHandler)
+	//mux.Get("/rpc/mailboxes", mailadmin.MailBoxesHandler)
+}
 
 //===============================================
 type ErrorPayload struct {
@@ -44,16 +60,6 @@ func SetAjaxHeaders(w http.ResponseWriter){
 }
 
 
-func SetRoutes(router *mux.Router){
-	router.HandleFunc("/ajax/mailbox/{address}/summary", SummaryHandler)
-		//mux.Get("/rpc/mailbox/summary", mailajax.SummaryHandler)
-
-	router.HandleFunc("/ajax/mailbox/{address}/folders", FoldersHandler)
-
-	router.HandleFunc("/ajax/mailbox/{address}/folder/{folder}/message/{uid}", MessageHandler)
-	//mux.Post("/rpc/mailbox/mb_id/{mb_id:[0-9]+}", mailadmin.MailBoxPostHandler)
-	//mux.Get("/rpc/mailboxes", mailadmin.MailBoxesHandler)
-}
 
 //===================================================================
 type Header struct {

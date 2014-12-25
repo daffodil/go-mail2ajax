@@ -1,26 +1,29 @@
 
 
-package m2a
+package mail2ajax
 
 
 import(
 	"os"
 	"fmt"
-	"database/sql"
+
+	"github.com/jmoiron/sqlx"
+	//"database/sql"
 	_ "github.com/go-sql-driver/mysql"
 	// ?? how do psql and interbase
+
 )
 
 // Global Db Connection
-var Db *sql.DB
+//var Db *sql.DB
 
 func InitDb(config *Config) {
-	fmt.Printf("Conf: ",  config.DbEngine)
+	fmt.Printf("Conf: ",  config.DBEngine)
 	var err error
-	Db, err = sql.Open(config.DbEngine, config.DbConnect)
+	config.DB, err = sqlx.Connect(config.DBEngine, config.DBConnect)
 	//Db, err = sql.Open("mysql", config.Db.User+":"+config.Db.Password+"@/"+config.Db.Database)
 	if err != nil {
-		fmt.Printf("Db Login Failed: ", err,"=", config.DbEngine)
+		fmt.Printf("Db Login Failed: ", err,"=", config.DBEngine)
 		os.Exit(1)
 	}
 }
