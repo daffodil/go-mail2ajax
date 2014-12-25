@@ -48,6 +48,7 @@ func ForwardingsHandler(resp http.ResponseWriter, req *http.Request) {
 
 	vars := mux.Vars(req)
 	domain := vars["domain"]
+	//as_rows := vars["rows"]
 	// TODO check domain exists
 
 	payload := NewForwardingsPayload()
