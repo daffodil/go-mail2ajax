@@ -23,7 +23,7 @@ var config *mail2ajax.Config
 
 func Configure(cfg *mail2ajax.Config, router *mux.Router){
 	config = cfg
-	//router.HandleFunc("/admin/{domain}/all", DomainAllHandler)
+	router.HandleFunc("/admin/domains", DomainsHandler)
 	router.HandleFunc("/admin/{domain}/forwardings", ForwardingsHandler)
 	//router.HandleFunc("/admin/mailbox/{domain}/{mailbox}/create", CreateMailboxHandler)
 	//mux.Get("/rpc/mailbox/summary", mailajax.SummaryHandler)
