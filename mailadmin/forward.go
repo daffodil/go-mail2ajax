@@ -6,15 +6,9 @@ import(
 
 	"fmt"
 	"net/http"
-	//"bytes"
-	//"net/mail"
 	"encoding/json"
-	//"database/sql"
 
 	"github.com/gorilla/mux"
-	//"code.google.com/p/go-imap/go1/imap"
-
-	//"github.com/daffodil/go-mail2ajax/mail2ajax"
 )
 
 type Forward struct {
