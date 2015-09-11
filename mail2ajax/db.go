@@ -14,9 +14,6 @@ import(
 
 )
 
-// Global Db Connection
-//var Db *sql.DB
-
 func InitDb(config *Config) {
 	fmt.Printf("Conf: ",  config.DBEngine)
 	var err error

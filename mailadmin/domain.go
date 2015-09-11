@@ -12,42 +12,57 @@ import(
 )
 
 type Domain struct {
-	DomainID int `db:"domain_id" json:"domain_id"`
-	Domain string `db:"domain" json:"domain"`
+	//DomainID int `db:"domain_id" json:"domain_id"`
+	Domain string 		`db:"domain" json:"domain"`
+	Description string 	`db:"description" json:"description"`
+	Aliases int 		`db:"aliases" json:"aliases"`
+	Mailboxes int 		`db:"mailboxes" json:"mailboxes"`
+	MaxQuota int 		`db:"maxquota" json:"maxquota"`
+	Quota int 			`db:"quota" json:"quota"`
+	Transport string	`db:"transport" json:"transport"`
+	BackupMx int 		`db:"backupmx" json:"backupmx"`
+	Created string		`db:"created" json:"created"`
+	Modified string		`db:"modified" json:"modified"`
+	Active int 			`db:"active" json:"active"`
 }
 
-type DomainsPayload struct {
+type DomainPayload struct {
 	Success bool `json:"success"` // keep extjs happy
-	Domains []Domain `json:"domains"`
+	Domain Domain `json:"domain"`
 	Error string `json:"error"`
 }
 
-func NewDomainsPayload() DomainsPayload {
-	t := DomainsPayload{}
-	t.Success = true
-	t.Domains = make([]Domain, 0)
-	return t
+
+
+func NewDomainPayload() DomainPayload {
+	payload := DomainPayload{}
+	payload.Success = true
+	payload.Domain = Domain{}
+	return payload
 }
 
-// gets forwardings from database
-// TODO filter by domain in source
-func GetDomains() ([]Domain, error) {
-	var rows []Domain
-	err := config.DB.Select(&rows, "SELECT id as dsomain_id, name as domain FROM virtual_domains order by name asc ")
-	return rows, err
+
+
+func GetDomain() (Domain, error) {
+	var row Domain
+	err := config.DB.Select(&row, "SELECT domain, description, aliases, mailboxes, maxquota, quota, transport, backupmx, created, modified, active FROM domain order by domain asc ")
+	return row, err
 }
 
-func DomainsHandler(resp http.ResponseWriter, req *http.Request) {
+
+// Handles /ajax/domain/example.com
+func DomainAjaxHandler(resp http.ResponseWriter, req *http.Request) {
 
 	//_ := mux.Vars(req)
+	// TODO auth
 
-
-	payload := NewDomainsPayload()
+	payload := NewDomainPayload()
 
 	var err error
-	payload.Domains, err = GetDomains()
+	payload.Domain, err = GetDomain()
 	if err != nil{
 		fmt.Println(err)
+		payload.Error = "DB Error: " + err.Error()
 	}
 
 

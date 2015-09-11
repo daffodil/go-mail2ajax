@@ -4,26 +4,28 @@ package main
 import (
 	"fmt"
 	//"log"
-	"flag"
-
+	//"flag"
+	//"crypto/md5"
 	"net/http"
+
 	"github.com/gorilla/mux"
 
 	"github.com/daffodil/go-mail2ajax/mail2ajax"
 	//"github.com/daffodil/go-mail2ajax/mailbox"
 	"github.com/daffodil/go-mail2ajax/mailadmin"
+
 )
 
 
 func main(){
 
-	fWrite := flag.Bool("create", false, "Create config.toml file")
+	//#fWrite := flag.Bool("create", false, "Create config.toml file")
 
-	flag.Parse()
+	//flag.Parse()
 	//TODO - write config
 
-	config := mail2ajax.Init()
-    fmt.Printf("Results: %v\n", config, fWrite)
+	config, err := mail2ajax.Init()
+    fmt.Printf("Results: %v\n", config, err)
     
 	// gotta be a better way to connect and db etc.. am a newbie
 	defer config.DB.Close()

@@ -4,13 +4,6 @@ package mailadmin
 
 import(
 
-	//"fmt"
-	//"net/http"
-	//"bytes"
-	//"net/mail"
-	//"encoding/json"
-	//"database/sql"
-
 	"github.com/gorilla/mux"
 	//"code.google.com/p/go-imap/go1/imap"
 
@@ -23,8 +16,9 @@ var config *mail2ajax.Config
 
 func Configure(cfg *mail2ajax.Config, router *mux.Router){
 	config = cfg
-	router.HandleFunc("/admin/domains", DomainsHandler)
-	router.HandleFunc("/admin/{domain}/forwardings", ForwardingsHandler)
+	router.HandleFunc("/ajax/domains", DomainsAjaxHandler)
+	//router.HandleFunc("/ajax/{domain}/forwardings", ForwardingsHandler)
+	router.HandleFunc("/ajax/domain/{domain}", DomainAjaxHandler)
 	//router.HandleFunc("/admin/mailbox/{domain}/{mailbox}/create", CreateMailboxHandler)
 	//mux.Get("/rpc/mailbox/summary", mailajax.SummaryHandler)
 
