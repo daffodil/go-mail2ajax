@@ -45,7 +45,8 @@ func NewDomainPayload() DomainPayload {
 
 func GetDomain() (Domain, error) {
 	var row Domain
-	err := config.DB.Select(&row, "SELECT domain, description, aliases, mailboxes, maxquota, quota, transport, backupmx, created, modified, active FROM domain order by domain asc ")
+	err := config.DB.QueryRow(&row, "SELECT domain, description, aliases, mailboxes, maxquota, quota, transport, backupmx, created, modified, active FROM domain order by domain asc ")
+
 	return row, err
 }
 
